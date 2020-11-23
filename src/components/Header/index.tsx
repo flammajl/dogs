@@ -13,14 +13,9 @@ const Header: React.FC = () => {
           <Dogs />
         </Link>
         {user ? (
-          <>
-            <Link className={styles.login} to="/conta">
-              {user.nome}
-            </Link>
-            <button onClick={SignOut} type="button">
-              Sair
-            </button>
-          </>
+          <Link className={styles.login} to="/conta">
+            {user.nome}
+          </Link>
         ) : (
           <Link className={styles.login} to="/login">
             Login / Criar

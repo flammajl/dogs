@@ -109,6 +109,8 @@ export const AuthProvider: React.FC = ({ children }) => {
           });
 
           await getUser(token);
+          setLogin(true);
+
           navigate('/conta');
         } catch (err) {
           // Adicionar toast de erro
@@ -116,6 +118,8 @@ export const AuthProvider: React.FC = ({ children }) => {
         } finally {
           setLoading(false);
         }
+      } else {
+        setLogin(false);
       }
     };
     autoLogin();
