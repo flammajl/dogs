@@ -1,18 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Dogs } from '../../assets/dogs.svg';
+import { useAuth } from '../../hooks/auth';
 import styles from '../../styles/Header.module.css';
 
 const Header: React.FC = () => {
+  const { user, SignOut } = useAuth();
   return (
     <header className={styles.header}>
       <nav className={`${styles.nav} container`}>
         <Link className={styles.logo} to="/" aria-label="Dogs - Home">
           <Dogs />
         </Link>
-        <Link className={styles.login} to="/login">
-          Login / Criar
-        </Link>
+        {user ? (
+          <>
+            <Link className={styles.login} to="/conta">
+              {user.nome}
+            </Link>
+            <button onClick={SignOut} type="button">
+              Sair
+            </button>
+          </>
+        ) : (
+          <Link className={styles.login} to="/login">
+            Login / Criar
+          </Link>
+        )}
       </nav>
     </header>
   );

@@ -47,3 +47,41 @@ a {
   padding: 0 1rem;
   margin: 0 auto;
 }
+
+.tooltip-error {
+ position: relative;
+ height: 20px;
+ margin-left: 1rem;
+}
+
+.tooltip-error span {
+  width: 160px;
+  padding: 8px;
+  border-radius: 4px;
+  background: #c53030;
+  color: #fff;
+  font-weight: 500;
+  opacity: 1;
+  visibility: hidden;
+
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 30%;
+  transform: translateX(-50%);
+}
+
+.tooltip-error span::after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-color: #c53030 transparent;
+  border-width: 6px 6px 0 6px;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.tooltip-error:hover span {
+  opacity: 1;
+  visibility: visible;
+}

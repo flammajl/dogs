@@ -1,8 +1,8 @@
 .wrapper {
   margin-bottom: 1rem;
-}
+  display: flex;
+  align-items: center;
 
-.input {
   border: 1px solid #eee;
   width: 100%;
   font-size: 1rem;
@@ -10,10 +10,24 @@
   border-radius: 0.4rem;
   background: #eee;
   transition: 0.2s;
+
 }
 
-.input:focus, .input:hover{
+.input {
+  /* border: 1px solid #eee;
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  background: #eee;
+  transition: 0.2s; */
+  flex: 1;
+  background: transparent;
+  border: 0;
   outline: none;
+}
+
+.wrapper:focus, .wrapper:hover{
   border-color: #fb1;
   background: white;
   box-shadow: 0 0 0 3px #fea, 0 0 0 4px #fb1;
@@ -23,11 +37,9 @@
   display: block;
   font-size: 1rem;
   line-height: 1;
-  padding-bottom: 0.5rem;
+  padding: 0.5rem 0;
 }
 
-.error {
-  color: #c53030;
-  font-size: 0.875rem;
-  margin-top: 0.25rem;
+.svg {
+  margin-right: 0.8rem;
 }
