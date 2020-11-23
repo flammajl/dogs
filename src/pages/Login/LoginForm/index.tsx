@@ -7,6 +7,8 @@ import Button from '../../../components/Button';
 import Input from '../../../components/Input';
 import getValidationErros from '../../../utils/getValidationErrors';
 import { useAuth } from '../../../hooks/auth';
+import styles from '../../../styles/LoginForm.module.css';
+import stylesBtn from '../../../styles/Button.module.css';
 
 interface SignInFormData {
   username: string;
@@ -36,16 +38,17 @@ const LoginForm: React.FC = () => {
           const errors = getValidationErros(err);
           formRef.current?.setErrors(errors);
         }
+        // Adicionar toast de error
       }
     },
     [SignIn],
   );
 
   return (
-    <section>
-      <h1>Login</h1>
+    <section className="animeLeft">
+      <h1 className="title">Login</h1>
 
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
         <Input label="Usuário" name="username" type="text" />
         <Input label="Senha" name="password" type="password" />
 
@@ -57,7 +60,16 @@ const LoginForm: React.FC = () => {
           <Button type="submit">Entrar</Button>
         )}
       </Form>
-      <Link to="criar">Cadastro</Link>
+      <Link className={styles.perdeu} to="perdeu">
+        Esqueci minha senha
+      </Link>
+      <div className={styles.cadastro}>
+        <h2 className={styles.subtitle}>Cadastre-se</h2>
+        <p>Ainda não possui conta ? Cadastre-se no site.</p>
+        <Link className={stylesBtn.button} to="criar">
+          Cadastro
+        </Link>
+      </div>
     </section>
   );
 };
