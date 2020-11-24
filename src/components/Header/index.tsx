@@ -5,7 +5,7 @@ import { useAuth } from '../../hooks/auth';
 import styles from '../../styles/Header.module.css';
 
 const Header: React.FC = () => {
-  const { user, SignOut } = useAuth();
+  const { user } = useAuth();
   return (
     <header className={styles.header}>
       <nav className={`${styles.nav} container`}>
