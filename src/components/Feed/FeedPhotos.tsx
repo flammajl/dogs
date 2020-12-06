@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import api from '../../services/api';
-import FeedPhotosItem from './FeedPhotoItem';
 import styles from '../../styles/FeedPhotos.module.css';
+import stylesPhotoItem from '../../styles/FeedPhotoItem.module.css';
+import FeedModal, { ModalHandles } from './FeedModal';
 
 export interface PhotoProps {
   id: number;
@@ -17,6 +18,15 @@ export interface PhotoProps {
 
 const FeedPhotos: React.FC = () => {
   const [data, setData] = useState<PhotoProps[]>([]);
+  const [modalPhoto, setModalPhoto] = useState<PhotoProps>({} as PhotoProps);
+
+  const modalRef = useRef<ModalHandles>(null);
+  const handleClick = useCallback((photo: PhotoProps) => {
+    if (photo) {
+      setModalPhoto(photo);
+      modalRef.current?.openModal();
+    }
+  }, []);
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -26,14 +36,26 @@ const FeedPhotos: React.FC = () => {
     fetchPhotos();
   }, []);
 
-  console.log(data);
-
   return (
-    <ul className={`${styles.feed} animeLeft`}>
-      {data.map(photo => (
-        <FeedPhotosItem key={photo.id} photo={photo} />
-      ))}
-    </ul>
+    <>
+      {modalPhoto && <FeedModal photo={modalPhoto} ref={modalRef} />}
+
+      <ul className={`${styles.feed} animeLeft`}>
+        {data.map(photo => (
+          <li
+            className={stylesPhotoItem.photo}
+            onClick={() => {
+              handleClick(photo);
+            }}
+            role="presentation"
+            key={photo.id}
+          >
+            <img src={photo.src} alt={photo.title} />
+            <span className={stylesPhotoItem.acessos}>{photo.acessos}</span>
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
 

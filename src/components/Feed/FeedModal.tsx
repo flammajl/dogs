@@ -1,5 +1,63 @@
-import React from 'react';
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useState,
+} from 'react';
+import api from '../../services/api';
+import { PhotoProps } from './FeedPhotos';
+import styles from '../../styles/FeedModal.module.css';
+import PhotoContent from '../Photo/PhotoContent';
 
-const FeedModal: React.FC = () => <div>FeedModal</div>;
+export interface ModalPhotoProps {
+  photo: PhotoProps;
+  comments: {
+    comment_content: string;
+  };
+}
 
-export default FeedModal;
+interface FeedModalProps {
+  photo: PhotoProps;
+}
+
+export interface ModalHandles {
+  openModal: () => void;
+}
+
+const FeedModal: React.ForwardRefRenderFunction<
+  ModalHandles,
+  FeedModalProps
+> = ({ photo }, ref) => {
+  const [visible, setVisible] = useState(false);
+
+  const openModal = useCallback(() => {
+    setVisible(true);
+  }, []);
+
+  useImperativeHandle(ref, () => {
+    return {
+      openModal,
+    };
+  });
+
+  const handleOutsideClick = useCallback(e => {
+    if (e.target === e.currentTarget) setVisible(false);
+  }, []);
+
+  if (!visible) {
+    return null;
+  }
+
+  return (
+    <div
+      className={styles.modal}
+      onClick={handleOutsideClick}
+      role="presentation"
+    >
+      <PhotoContent data={photo} />
+    </div>
+  );
+};
+
+export default forwardRef(FeedModal);
