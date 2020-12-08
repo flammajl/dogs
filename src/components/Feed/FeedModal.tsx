@@ -1,11 +1,9 @@
 import React, {
   forwardRef,
   useCallback,
-  useEffect,
   useImperativeHandle,
   useState,
 } from 'react';
-import api from '../../services/api';
 import { PhotoProps } from './FeedPhotos';
 import styles from '../../styles/FeedModal.module.css';
 import PhotoContent from '../Photo/PhotoContent';
@@ -13,8 +11,10 @@ import PhotoContent from '../Photo/PhotoContent';
 export interface ModalPhotoProps {
   photo: PhotoProps;
   comments: {
+    comment_ID: string;
+    comment_author: string;
     comment_content: string;
-  };
+  }[];
 }
 
 interface FeedModalProps {

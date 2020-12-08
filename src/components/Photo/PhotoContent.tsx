@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 import styles from '../../styles/PhotoContent.module.css';
 import { ModalPhotoProps } from '../Feed/FeedModal';
 import { PhotoProps } from '../Feed/FeedPhotos';
 import PhotoComments from './PhotoComments';
+import PhotoDelete from './PhotoDelete';
 
 interface PhotoContentProps {
   data: PhotoProps;
@@ -15,6 +17,8 @@ const PhotoContent: React.FC<PhotoContentProps> = ({ data }) => {
   const [modalPhoto, setModalPhoto] = useState<ModalPhotoProps>(
     {} as ModalPhotoProps,
   );
+
+  const { user } = useAuth();
 
   useEffect(() => {
     const getPhoto = async () => {
@@ -49,9 +53,12 @@ const PhotoContent: React.FC<PhotoContentProps> = ({ data }) => {
       <div className={styles.details}>
         <div>
           <p className={styles.author}>
-            {photo && (
-              <Link to={`/perfil/${photo.author}`}>{`@${photo.author}`}</Link>
-            )}
+            {photo &&
+              (user && user.nome === photo.author ? (
+                <PhotoDelete id={photo.id} />
+              ) : (
+                <Link to={`/perfil/${photo.author}`}>{`@${photo.author}`}</Link>
+              ))}
             {photo && (
               <span className={styles.visualizacoes}>{photo.acessos}</span>
             )}
