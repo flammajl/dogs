@@ -3,6 +3,7 @@ import api from '../../services/api';
 import styles from '../../styles/FeedPhotos.module.css';
 import stylesPhotoItem from '../../styles/FeedPhotoItem.module.css';
 import FeedModal, { ModalHandles } from './FeedModal';
+import Image from '../../utils/Image';
 
 export interface PhotoProps {
   id: number;
@@ -50,7 +51,8 @@ const FeedPhotos: React.FC = () => {
             role="presentation"
             key={photo.id}
           >
-            <img src={photo.src} alt={photo.title} />
+            {/* <img src={photo.src} alt={photo.title} /> */}
+            <Image src={photo.src} alt={photo.title} />
             <span className={stylesPhotoItem.acessos}>{photo.acessos}</span>
           </li>
         ))}

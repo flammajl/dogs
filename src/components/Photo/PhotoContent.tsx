@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 import styles from '../../styles/PhotoContent.module.css';
+import Image from '../../utils/Image';
 import { ModalPhotoProps } from '../Feed/FeedModal';
 import { PhotoProps } from '../Feed/FeedPhotos';
 import PhotoComments from './PhotoComments';
@@ -48,7 +49,8 @@ const PhotoContent: React.FC<PhotoContentProps> = ({ data }) => {
   return (
     <div className={styles.photo}>
       <div className={styles.img}>
-        {photo && <img src={photo.src} alt={photo.title} />}
+        {/* {photo && <img src={photo.src} alt={photo.title} />} */}
+        {photo && <Image src={photo.src} alt={photo.title} />}
       </div>
       <div className={styles.details}>
         <div>
