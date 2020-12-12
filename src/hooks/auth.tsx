@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
 
 interface AuthState {
-  user: { email: string; nome: string };
+  user: { id: number; email: string; nome: string };
 }
 
 interface SignInCredentials {
@@ -18,7 +18,7 @@ interface SignInCredentials {
 }
 
 interface AuthContextData {
-  user: { email: string; nome: string };
+  user: { id: number; email: string; nome: string };
   SignIn(credentials: SignInCredentials): Promise<void>;
   SignOut(): void;
   loading: boolean;
@@ -50,8 +50,9 @@ export const AuthProvider: React.FC = ({ children }) => {
       },
     });
 
-    const { email, nome } = response.data;
+    const { id, email, nome } = response.data;
     const user = {
+      id,
       email,
       nome,
     };

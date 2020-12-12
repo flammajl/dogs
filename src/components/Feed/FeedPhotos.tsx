@@ -1,10 +1,23 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import api from '../../services/api';
 import styles from '../../styles/FeedPhotos.module.css';
 import stylesPhotoItem from '../../styles/FeedPhotoItem.module.css';
 import FeedModal, { ModalHandles } from './FeedModal';
 import Image from '../../utils/Image';
 import Loading from '../Loading';
+
+interface FeedPhotosProps {
+  user: number | undefined;
+  page: number;
+  setInfinite: Dispatch<SetStateAction<boolean>>;
+}
 
 export interface PhotoProps {
   id: number;
@@ -18,7 +31,7 @@ export interface PhotoProps {
   total_comments: string;
 }
 
-const FeedPhotos: React.FC = () => {
+const FeedPhotos: React.FC<FeedPhotosProps> = ({ user, page, setInfinite }) => {
   const [data, setData] = useState<PhotoProps[]>([]);
   const [loading, setLoading] = useState(false);
   const [modalPhoto, setModalPhoto] = useState<PhotoProps>({} as PhotoProps);
@@ -35,8 +48,13 @@ const FeedPhotos: React.FC = () => {
     const fetchPhotos = async () => {
       try {
         setLoading(true);
-        const response = await api.get('/api/photo/?_page=1&_total=6&_user=0');
+        const response = await api.get(
+          `/api/photo/?_page=${page}&_total=6&_user=${user}`,
+        );
         setData(response.data);
+
+        if (response && response.status === 200 && response.data.length < 6)
+          setInfinite(false);
       } catch (err) {
         throw new Error(err);
       } finally {
@@ -44,7 +62,7 @@ const FeedPhotos: React.FC = () => {
       }
     };
     fetchPhotos();
-  }, []);
+  }, [user, page, setInfinite]);
 
   if (loading) {
     return <Loading />;
