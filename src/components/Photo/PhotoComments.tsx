@@ -11,9 +11,14 @@ interface PhotoCommentsProps {
     comment_author: string;
     comment_content: string;
   }[];
+  single?: boolean;
 }
 
-const PhotoComments: React.FC<PhotoCommentsProps> = ({ id, comments }) => {
+const PhotoComments: React.FC<PhotoCommentsProps> = ({
+  id,
+  comments,
+  single,
+}) => {
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
   const { login } = useAuth();
 
@@ -36,7 +41,7 @@ const PhotoComments: React.FC<PhotoCommentsProps> = ({ id, comments }) => {
 
   return (
     <>
-      <ul className={styles.comments}>
+      <ul className={`${styles.comments} ${single ? styles.single : ''}`}>
         {comments.map(comment => (
           <li key={comment.comment_ID}>
             <b>{`${comment.comment_author}: `}</b>
@@ -46,7 +51,10 @@ const PhotoComments: React.FC<PhotoCommentsProps> = ({ id, comments }) => {
       </ul>
 
       {login && (
-        <form className={styles.form} onSubmit={handleSubmit}>
+        <form
+          className={`${styles.form} ${single ? styles.single : ''}`}
+          onSubmit={handleSubmit}
+        >
           <textarea
             name="comment"
             id="comment"

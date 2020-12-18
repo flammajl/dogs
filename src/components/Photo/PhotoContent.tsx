@@ -12,9 +12,10 @@ import PhotoDelete from './PhotoDelete';
 
 interface PhotoContentProps {
   data: PhotoProps;
+  single?: boolean;
 }
 
-const PhotoContent: React.FC<PhotoContentProps> = ({ data }) => {
+const PhotoContent: React.FC<PhotoContentProps> = ({ data, single }) => {
   const [loading, setLoading] = useState(false);
   const [modalPhoto, setModalPhoto] = useState<ModalPhotoProps>(
     {} as ModalPhotoProps,
@@ -26,8 +27,10 @@ const PhotoContent: React.FC<PhotoContentProps> = ({ data }) => {
     const getPhoto = async () => {
       try {
         setLoading(true);
-        const response = await api.get(`/api/photo/${data.id}`);
-        setModalPhoto(response.data);
+        if (data.id) {
+          const response = await api.get(`/api/photo/${data.id}`);
+          setModalPhoto(response.data);
+        }
       } catch (err) {
         throw new Error(err);
       } finally {
@@ -48,7 +51,7 @@ const PhotoContent: React.FC<PhotoContentProps> = ({ data }) => {
   }
 
   return (
-    <div className={styles.photo}>
+    <div className={`${styles.photo} ${single ? styles.single : ''}`}>
       <div className={styles.img}>
         {photo && <Image src={photo.src} alt={photo.title} />}
       </div>
@@ -78,7 +81,9 @@ const PhotoContent: React.FC<PhotoContentProps> = ({ data }) => {
           </ul>
         </div>
       </div>
-      {photo && <PhotoComments id={photo.id} comments={comments} />}
+      {photo && (
+        <PhotoComments id={photo.id} comments={comments} single={single} />
+      )}
     </div>
   );
 };

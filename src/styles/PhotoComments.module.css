@@ -4,6 +4,10 @@
   padding: 0 2rem;
 }
 
+.single.comments {
+  padding: 0;
+}
+
 .comments li {
   margin-bottom: 0.55rem;
   line-height: 1.2;
@@ -14,6 +18,10 @@
   grid-template-columns: 1fr auto;
   align-items: stretch;
   margin: 1rem;
+}
+
+.single.form {
+  margin-left: 0;
 }
 
 .textarea {
@@ -28,6 +36,8 @@
   background: #eee;
   transition: 0.2s;
 }
+
+
 
 .textarea:hover, .textarea:focus {
   outline: none;
