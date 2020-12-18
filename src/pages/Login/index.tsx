@@ -6,6 +6,7 @@ import LoginPasswordLost from './LoginPasswordLost';
 import LoginPasswordReset from './LoginPasswordReset';
 import { useAuth } from '../../hooks/auth';
 import styles from '../../styles/Login.module.css';
+import NotFound from '../NotFound';
 
 const Login: React.FC = () => {
   const { login } = useAuth();
@@ -20,6 +21,7 @@ const Login: React.FC = () => {
           <Route path="criar" element={<LoginCreate />} />
           <Route path="perdeu" element={<LoginPasswordLost />} />
           <Route path="resetar" element={<LoginPasswordReset />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </section>
