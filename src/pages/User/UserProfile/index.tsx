@@ -8,7 +8,7 @@ const UserProfile: React.FC = () => {
   return (
     <section className="container mainContainer">
       <h1 className="title">{user}</h1>
-      <Feed />
+      <Feed userId={user} />
     </section>
   );
 };

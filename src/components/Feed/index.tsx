@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import FeedPhotos from './FeedPhotos';
 
 interface FeedProps {
-  userId?: number;
+  userId?: number | string;
 }
 
 const Feed: React.FC<FeedProps> = ({ userId }) => {
