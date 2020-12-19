@@ -7,13 +7,17 @@ import './styles/App.css';
 import { AuthProvider } from './hooks/auth';
 
 const App: React.FC = () => (
-  <BrowserRouter>
-    <AuthProvider>
-      <Header />
-      <Routes />
-      <Footer />
-    </AuthProvider>
-  </BrowserRouter>
+  <div className="App">
+    <BrowserRouter>
+      <AuthProvider>
+        <Header />
+        <main className="AppBody">
+          <Routes />
+        </main>
+        <Footer />
+      </AuthProvider>
+    </BrowserRouter>
+  </div>
 );
 
 export default App;
