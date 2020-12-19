@@ -14,7 +14,7 @@ import Image from '../../utils/Image';
 import Loading from '../Loading';
 
 interface FeedPhotosProps {
-  user: number | string | undefined;
+  user: number | string;
   page: number;
   setInfinite: Dispatch<SetStateAction<boolean>>;
 }

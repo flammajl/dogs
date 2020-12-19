@@ -12,7 +12,7 @@ const UserHeader: React.FC = () => {
 
     switch (pathname) {
       case '/conta':
-        setTitle('Feed');
+        setTitle('Minha conta');
         break;
       case '/conta/estatisticas':
         setTitle('Estatísticas');

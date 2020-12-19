@@ -5,7 +5,7 @@ interface FeedProps {
   userId?: number | string;
 }
 
-const Feed: React.FC<FeedProps> = ({ userId }) => {
+const Feed: React.FC<FeedProps> = ({ userId = 0 }) => {
   const [pages, setPages] = useState([1]);
   const [infinite, setInfinite] = useState(true);
 
