@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { lazy, Suspense, useEffect, useState } from 'react';
 import api from '../../../services/api';
 import { UserStatsProps } from './interface';
-import UserStatsGraph from './UserStatsGraph';
+
+const UserStatsGraph = lazy(() => import('./UserStatsGraph'));
 
 const UserStats: React.FC = () => {
   const [data, setData] = useState<UserStatsProps[]>([]);
@@ -17,9 +18,9 @@ const UserStats: React.FC = () => {
     getData();
   }, []);
   return (
-    <div>
+    <Suspense fallback={<div />}>
       <UserStatsGraph data={data} />
-    </div>
+    </Suspense>
   );
 };
 
