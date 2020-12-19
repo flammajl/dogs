@@ -29,11 +29,15 @@ const PhotoComments: React.FC<PhotoCommentsProps> = ({
       e.preventDefault();
 
       if (textAreaRef.current?.value && token) {
-        await api.post(`/api/comment/${id}`, textAreaRef.current.value, {
-          headers: {
-            Authorization: `Bearer ${token}`,
+        await api.post(
+          `/api/comment/${id}`,
+          { comment: textAreaRef.current.value },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           },
-        });
+        );
       }
     },
     [id, token],
