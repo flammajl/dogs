@@ -53,7 +53,7 @@ const LoginPasswordReset: React.FC = () => {
   );
 
   return (
-    <section>
+    <section className="animeLeft">
       <h1 className="title">Resete a sua senha</h1>
       {reset ? (
         <p>Senha alterada, você já pode fazer login normalmente.</p>
